@@ -59,7 +59,7 @@
                     <select class="form-control select2-show-search " data-placeholder="choose" name="parent" >
                         <option label="انتخاب کنید"></option>
                         {% for category in Category %}
-                        <option value="{{ category.title }}">{{ category.title }}</option>
+                        <option value="{{ category.id }}">{{ category.title }}</option>
                         {% endfor %}
                     </select>
                 <div class="row">

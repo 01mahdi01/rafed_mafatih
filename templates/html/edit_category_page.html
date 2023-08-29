@@ -68,8 +68,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title mb-0">لیست دعا ها</h3>
-                        <a href="{% url 'create_prayer_page' %}" class="btn btn-primary ms-auto" aria-expanded="false">
+                        <h3 class="card-title mb-0">لیست دسته بندی ها</h3>
+                        <a href="{% url 'create_category_page' %}" class="btn btn-primary ms-auto" aria-expanded="false">
                             اضافه کردن<span class="caret"></span>
                         </a>
                     </div>
@@ -81,58 +81,60 @@
                                         <table id="data-table" class="table table-bordered text-nowrap mb-0">
                                             <thead class="border-top">
                                             <tr>
-                                                <th class="bg-transparent border-bottom-0">ایدی دعا</th>
-                                                <th class="bg-transparent border-bottom-0">نام دعا</th>
-                                                <th class="bg-transparent border-bottom-0">ایدی دعای مرجع</th>
+                                                <th class="bg-transparent border-bottom-0">ایدی دسته بندی</th>
+                                                <th class="bg-transparent border-bottom-0">نام دسته بندی</th>
+                                                <th class="bg-transparent border-bottom-0">ایدی دسته بندی مرجع</th>
+                                                <th class="bg-transparent border-bottom-0">وضعیت نمایش در فهرست</th>
                                                 <th class="bg-transparent border-bottom-0">وضعیت نمایش</th>
-                                                <th class="bg-transparent border-bottom-0">ویرایش</th>
+                                                <th class="bg-transparent border-bottom-0">ایدی دعا های این دسته بندی</th>
 
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for prayer in Prayer %}
                                                 <tr class="border-bottom">
                                                     <td class="text-center">
                                                         <div class="mt-0 mt-sm-2 d-block">
-                                                            <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.id }}</h6>
+                                                            <h6 class="mb-0 fs-14 fw-semibold">{{ Category.id }}</h6>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.name }}</h6>
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Category.title }}</h6>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">
-                                                                    {{ prayer.parent.name }}
-                                                                </h6>
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Category.parent }}</h6>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.publish }}</h6>
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Category.index }}</h6>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                <td>
                                                         <div class="d-flex">
                                                             <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <a href="{% url 'edit_prayer_page' id=prayer.id %}"
-                                                                   class="btn btn-primary ms-auto"
-                                                                   aria-expanded="false">
-                                                                    ویرایش<span class="caret"></span>
-                                                                </a>
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Category.publish }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                <td>
+                                                        <div class="d-flex">
+                                                            <div class="ms-3 mt-0 mt-sm-2   row">
+                                                                {% for x in Category.prayer.all %}
+                                                                <h6 class="mb-0 fs-14 fw-semibold ">,{{ x.id }}</h6>
+                                                                {% endfor %}
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

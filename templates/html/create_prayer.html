@@ -58,7 +58,7 @@
                                             data-placeholder="choose" name="parent">
                                         <option label="انتخاب کنید"></option>
                                         {% for prayer in Prayer %}
-                                            <option value="{{ prayer.name }}">{{ prayer.name }}</option>
+                                            <option value="{{ prayer.id }}">{{ prayer.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -66,10 +66,10 @@
                                 <div id="list1" class="dropdown-check-list  w-100" tabindex="100">
                                     <label class="form-label"> انتخاب دسته بندی ها </label>
                                     <select class="form-control select2-show-search form-select"
-                                            data-placeholder="choose" name="parent" multiple="multiple">
+                                            data-placeholder="choose" name="category" multiple="multiple">
                                         <option label="انتخاب کنید"></option>
                                         {% for category in Category %}
-                                            <option value="{{ category.title }}">{{ category.title }}</option>
+                                            <option value="{{ category.id }}">{{ category.title }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -81,10 +81,10 @@
                                         <label>publish status:</label>
                                         <div class="custom-controls-stacked">
                                              <label class="custom-control custom-radio">
-                                                 <input type="radio" class="custom-control-input" name="publish" value=0 checked="">
+                                                 <input type="radio" class="custom-control-input" name="publish" value=0 >
                                                  <span class="custom-control-label"> منتشر نشود </span> </label>
                                             <label class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="publish" value=1>
+                                                <input type="radio" class="custom-control-input" name="publish" value=1 checked="">
                                                 <span class="custom-control-label"> منتشر شود</span>
                                             </label>
                                         </div>
@@ -93,7 +93,7 @@
                                 <br>
                                 <div class="col-lg col-xl-4 col-md-6 w-100">
                                     <label class="form-label"> فراز ها </label>
-                                    <textarea class="form-control mb-4" placeholder=" فراز های دعا"></textarea>
+                                    <textarea class="form-control mb-4" placeholder=" فراز های دعا" name="phrases"></textarea>
                                 </div>
                                 {##}
                                 {#                    <label for="textarea">prayer phrases:</label><br>#}
