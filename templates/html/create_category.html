@@ -1,0 +1,131 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}
+{% block body_class %}rtl{% endblock %}
+{% block body %}
+
+    <!-- GLOBAL-LOADER -->
+    {% comment %}{% include 'loader.html' %}{% endcomment %}
+    <!-- /GLOBAL-LOADER -->
+
+    <!-- app-Header -->
+    {% include './header.html' %}
+    <!-- /app-Header -->
+
+    <!--APP-SIDEBAR-->
+    {% include './menu.html' %}
+
+    <!--app-content open-->
+    <div class="main-content app-content mt-0">
+        <div class="side-app">
+            <!-- CONTAINER -->
+            <div class="main-container container-fluid">
+                <!-- PAGE-HEADER OPTIONAL TO WRITE SOME DATA ABOUT request.user -->
+                <div class="page-header">
+                    <div class="w-100 d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div class="d-none d-sm-none d-md-block">
+                                <h1 class="page-title px-2">اضافه کردن دسته بندی جدید</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE-HEADER END -->
+
+            <!-- write your code here -->
+        <div class="card">
+            <div class="card-body">
+            <div class="card-header d-flex justify-content-between">
+                <h4 class="card-title"> اضافه کردن دسته بندی جدید</h4>
+            </div>
+
+
+            <form id="myForm" action="{% url "create_category" %}" method="post">
+            <div class="mb-5">
+                {% csrf_token %}
+            <div class="form-group">
+                <label for="name" class="form-label">نام دسته بندی:</label>
+                <input class="form-control" type="text" id="name" name="name"  required>
+                <div id="list1" class="dropdown-check-list w-100" tabindex="100">
+                    <label class="form-label w-100"> انتخاب دسته بندی والد </label>
+
+                    <select class="form-control select2-show-search " data-placeholder="choose" name="parent" >
+                        <option label="انتخاب کنید"></option>
+                        {% for category in Category %}
+                        <option value="{{ category.title }}">{{ category.title }}</option>
+                        {% endfor %}
+                    </select>
+                <div class="row">
+                <div class="col-xl-4 col-md-6">
+                                    <div class="form-label">
+                                        <label>publish status:</label>
+                                        <div class="custom-controls-stacked">
+                                             <label class="custom-control custom-radio">
+                                                 <input type="radio" class="custom-control-input" name="publish" value=0 >
+                                                 <span class="custom-control-label">منتشر نشود</span> </label>
+                                            <label class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="publish" value=1 checked="">
+                                                <span class="custom-control-label"> منتشر شود </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+
+
+                <div class="col-xl-4 col-md-6">
+                                    <div class="form-label">
+                                        <label>index:</label>
+                                        <div class="custom-controls-stacked">
+                                             <label class="custom-control custom-radio">
+                                                 <input type="radio" class="custom-control-input" name="index" value=0 >
+                                                 <span class="custom-control-label"> در فهرست نمایش داده نشود * </span> </label>
+                                            <label class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="index" value=1 checked="">
+                                                <span class="custom-control-label"> در فهرست نشان داده شود</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+
+                </div>
+                <div class="row border-top py-2">
+                    </div>
+                <button class="btn btn-primary mb-0" type="submit">ثبت</button>
+                </div>
+            </div>
+            </div>
+            </form>
+            <!-- /write your code here -->
+
+        </div>
+        </div>
+        <!-- CONTAINER END -->
+    </div>
+    </div>
+    </div>
+    <!--app-content close-->
+
+
+    <!-- Sidebar-right -->
+    <!--/Sidebar-right-->
+
+    <!-- Country-selector modal-->
+    <!-- Country-selector modal-->
+
+    <!-- FOOTER -->
+    {% include './footer.html' %}
+    <!-- FOOTER END -->
+
+    <!-- BACK-TO-TOP -->
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block js %}
+    <!-- INTERNAL Data tables js-->
+    <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/js/dataTables.bootstrap5.js' %}"></script>
+    <script src="{% static 'assets/plugins/datatable/dataTables.responsive.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#data-table').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "هیچ رکوردی وجود ندارد",
+                    "info": "نمایش از _START_ تا _END_ از _TOTAL_ ریکورد",
+                    "infoEmpty": "ریکوردی جهت نمایش وجود ندارد",
+                    "infoFiltered": "(filtered from _MAX_ total entries)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "نمایش تعداد _MENU_ ریکورد در هر صفحه",
+                    "loadingRecords": "در حال لود کردن اطلاعات...",
+                    "processing": "در حال پردازش...",
+                    "search": "جستجو:",
+                    "zeroRecords": "No matching records found",
+                    "paginate": {
+                        "first": "اول",
+                        "last": "آخر",
+                        "next": "بعد",
+                        "previous": "قبل"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% block body_class %}rtl{% endblock %}
+{% block body %}
+
+    <!-- GLOBAL-LOADER -->
+    {% comment %}{% include 'loader.html' %}{% endcomment %}
+    <!-- /GLOBAL-LOADER -->
+
+    <!-- app-Header -->
+    {% include './header.html' %}
+    <!-- /app-Header -->
+
+    <!--APP-SIDEBAR-->
+    {% include './menu.html' %}
+
+    <!--app-content open-->
+
+    <!-- PAGE-HEADER OPTIONAL TO WRITE SOME DATA ABOUT request.user -->
+    <
+    <div class="main-content app-content mt-0">
+        <div class="side-app">
+            <div class="main-container container-fluid">
+
+                <!-- PAGE-HEADER OPTIONAL TO WRITE SOME DATA ABOUT request.user -->
+
+                <!-- PAGE-HEADER END -->
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">لیست دعا ها</h3>
+                        <a href="{% url 'create_prayer_page' %}" class="btn btn-primary ms-auto" aria-expanded="false">
+                            اضافه کردن<span class="caret"></span>
+                        </a>
+                    </div>
+                    <div class="card-body pt-4">
+                        <div class="grid-margin">
+                            <div class="panel panel-primary">
+                                <div class="panel-body tabs-menu-body border-0 pt-0">
+                                    <div class="table-responsive">
+                                        <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                                            <thead class="border-top">
+                                            <tr>
+                                                <th class="bg-transparent border-bottom-0">ایدی دعا</th>
+                                                <th class="bg-transparent border-bottom-0">نام دعا</th>
+                                                <th class="bg-transparent border-bottom-0">ایدی دعای مرجع</th>
+                                                <th class="bg-transparent border-bottom-0">وضعیت نمایش</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for prayer in Prayer %}
+                                                <tr class="border-bottom">
+                                                    <td class="text-center">
+                                                        <div class="mt-0 mt-sm-2 d-block">
+                                                            <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.id }}</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.name }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
+                                                                <h6 class="mb-0 fs-14 fw-semibold">
+                                                                        {{ prayer.parent.name }}
+                                                                    </h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
+                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ prayer.publish }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+<!-- /write your code here -->
+
+
+<!-- CONTAINER END -->
+
+<!--app-content close-->
+
+
+<!-- Sidebar-right -->
+{% comment %}
+    {% include 'side_bar.html' %}
+    {% endcomment %}
+<!--/Sidebar-right-->
+
+<!-- Country-selector modal-->
+{% comment %}
+    {% include 'country_selector.html' %}
+    {% endcomment %}
+<!-- Country-selector modal-->
+
+<!-- FOOTER -->
+{% include './footer.html' %}
+<!-- FOOTER END -->
+
+<!-- BACK-TO-TOP -->
+<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
