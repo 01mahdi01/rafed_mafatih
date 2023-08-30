@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from .models import *
@@ -50,15 +50,17 @@ def create_prayer(request):
                 quran = re.findall("[$].*[$]", phrase)
                 # checking the phrase type
                 if explanation:
-                    for sharp in explanation:
-                        removed_sharp = sharp.replace('#', '')
-                        Phrase.objects.create(text=removed_sharp, order=f"{new_prayer.id},{count}", type=1,
-                                              prayer=new_prayer)
+                    # for sharp in explanation:
+                    sharp = explanation[0]
+                    removed_sharp = sharp.replace('#', '')
+                    Phrase.objects.create(text=removed_sharp, order=f"{new_prayer.id},{count}", type=1,
+                                          prayer=new_prayer)
                 elif quran:
-                    for dollar in quran:
-                        removed_dollar = dollar.replace('$', '')
-                        Phrase.objects.create(text=removed_dollar, order=f"{new_prayer.id},{count}", type=3,
-                                              prayer=new_prayer)
+                    # for dollar in quran:
+                    dollar = quran[0]
+                    removed_dollar = dollar.replace('$', '')
+                    Phrase.objects.create(text=removed_dollar, order=f"{new_prayer.id},{count}", type=3,
+                                          prayer=new_prayer)
                 # do not add empty rows
                 elif phrase != "":
                     Phrase.objects.create(text=phrase, order=f"{new_prayer.id},{count}", type=2, prayer=new_prayer)
@@ -84,8 +86,19 @@ def create_category(request):
 
 
 def edit_prayer_page(request, id):
-    return render(request, 'html/edit_prayer_page.html', {"Prayer": Prayer.objects.get(id=id)})
+    return render(request, 'html/edit_prayer_page.html',
+                  {"the_prayer": Prayer.objects.get(id=id), "Prayer": Prayer.objects.all()})
 
 
+@csrf_protect
+def update_prayer(request, id):
+    instance = Prayer.objects.filter(id=id)
+    updated = instance.update(name=request.POST.get('name'), parent=request.POST.get("parent"),
+                              publish=request.POST.get("publish"))
+
+    return redirect("create_prayer")
+
+
+@csrf_protect
 def edit_category_page(request, id):
     return render(request, 'html/edit_category_page.html', {"Category": Category.objects.get(id=id)})

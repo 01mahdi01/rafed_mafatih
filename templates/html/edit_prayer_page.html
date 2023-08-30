@@ -65,7 +65,7 @@
                 <!-- PAGE-HEADER OPTIONAL TO WRITE SOME DATA ABOUT request.user -->
 
                 <!-- PAGE-HEADER END -->
-
+                asd
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title mb-0">ویرایش دعا</h3>
@@ -74,7 +74,8 @@
                         <div class="grid-margin">
                             <div class="panel panel-primary">
                                 <div class="panel-body tabs-menu-body border-0 pt-0">
-                                    <div class="table-responsive">
+                                    <form class="table-responsive">
+                                        {% csrf_token %}
                                         <table id="data-table" class="table table-bordered text-nowrap mb-0">
                                             <thead class="border-top">
                                             <tr>
@@ -86,39 +87,48 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="border-bottom">
-                                                    <td class="text-center">
-                                                        <div class="mt-0 mt-sm-2 d-block">
-                                                            <h6 class="mb-0 fs-14 fw-semibold">{{ Prayer.id }}</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Prayer.name }}</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">
-                                                                    {{ Prayer.parent.name }}
-                                                                </h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <div class="ms-3 mt-0 mt-sm-2 d-block">
-                                                                <h6 class="mb-0 fs-14 fw-semibold">{{ Prayer.publish }}</h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tr class="border-bottom">
+                                                <td class="text-center">
+                                                    <div class="mt-0 mt-sm-2 d-block">
+                                                        <h6 class="mb-0 fs-14 fw-semibold">{{ the_prayer.id }}</h6>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-label">
+                                                            <input class="form-control" name="name"
+                                                                   value="{{ the_prayer.name }}"></input>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+
+                                                    <div id="list1" class="dropdown-check-list " tabindex="100">
+                                                        <label class="form-label"> انتخاب دعای والد </label>
+                                                        <select class="form-control select2-show-search form-select"
+                                                                data-placeholder="choose" name="parent">
+
+                                                            {% for prayer in Prayer %}
+                                                                <option value="{{ prayer.id }}">{{ prayer.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <label class="form-label">
+                                                            <input class="form-control "
+                                                                   value="{{ the_prayer.publish }}" name="publish"></input>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                        <button class="btn btn-primary mb-0" formmethod="post" type="submit"
+                                                formaction="{% url 'update_prayer' id=the_prayer.id %}"> ویرایش
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
